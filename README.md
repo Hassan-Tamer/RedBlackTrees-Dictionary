@@ -9,7 +9,7 @@
 - [x] insert
 - [ ] delete
 - [x] search 
-- [ ] print height
+- [x] print height
 - [x] print size
 - [x] load Dico
 - [x] print Dico

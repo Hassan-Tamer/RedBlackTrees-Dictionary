@@ -143,9 +143,6 @@ class RBTree:
             print(begin.val)
             self.inorder(begin.right)
 
-    def getRoot(self):
-        return self.root
-
     def search(self, key):
         root = self.root
         while root != self.NULL:
@@ -157,3 +154,19 @@ class RBTree:
                 return True
 
         return False
+    
+    def getRoot(self):
+        return self.root
+
+    def getHeight(self,node:Node):
+        if(node == self.NULL):
+            return 0
+ 
+        else:
+          lDepth = self.getHeight(node.left)
+          rDepth = self.getHeight(node.right)
+ 
+        if (lDepth > rDepth):
+            return lDepth+1
+        else:
+            return rDepth+1
