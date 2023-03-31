@@ -13,5 +13,5 @@
 - [x] print size
 - [x] load Dico
 - [x] print Dico
-- [ ] insert Dico
+- [x] insert Dico
 - [x] search Dico
