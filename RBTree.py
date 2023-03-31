@@ -64,51 +64,39 @@ class RBTree:
         y.right = x
         x.parent = y
 
-    def __fixInsert(self, k):
-        while k.parent.color == 1:  # While parent is red
-            if (
-                k.parent == k.parent.parent.right
-            ):  # if parent is right child of its parent
-                u = k.parent.parent.left  # Left child of grandparent
-                if (
-                    u.color == 1
-                ):  # if color of left child of grandparent i.e, uncle node is red
-                    u.color = 0  # Set both children of grandparent node as black
-                    k.parent.color = 0
-                    k.parent.parent.color = 1  # Set grandparent node as Red
-                    k = (
-                        k.parent.parent
-                    )  # Repeat the algo with Parent node to check conflicts
-                else:
-                    if k == k.parent.left:  # If k is left child of it's parent
-                        k = k.parent
-                        self.__rightRotate(k)  # Call for right rotation
+    def __fixInsert(self, k:Node):
+        while k.parent.color == RED:
+            if (k.parent == k.parent.parent.right):
+                u = k.parent.parent.left
+                if (u.color == 1):
+                    u.color = 0
                     k.parent.color = 0
                     k.parent.parent.color = 1
+                    k = k.parent.parent
+                else:
+                    if k == k.parent.left:
+                        k = k.parent
+                        self.__rightRotate(k)
+                    k.parent.color = BLACK
+                    k.parent.parent.color = RED
                     self.__leftRotate(k.parent.parent)
-            else:  # if parent is left child of its parent
-                u = k.parent.parent.right  # Right child of grandparent
-                if (
-                    u.color == 1
-                ):  # if color of right child of grandparent i.e, uncle node is red
-                    u.color = 0  # Set color of childs as black
-                    k.parent.color = 0
-                    k.parent.parent.color = 1  # set color of grandparent as Red
-                    k = (
-                        k.parent.parent
-                    )  # Repeat algo on grandparent to remove conflicts
+            else:
+                u = k.parent.parent.right
+                if (u.color == RED):
+                    u.color = BLACK
+                    k.parent.color = BLACK
+                    k.parent.parent.color = RED
+                    k = k.parent.parent
                 else:
-                    if k == k.parent.right:  # if k is right child of its parent
+                    if k == k.parent.right:
                         k = k.parent
-                        self.__leftRotate(k)  # Call left rotate on parent of k
-                    k.parent.color = 0
-                    k.parent.parent.color = 1
-                    self.__rightRotate(
-                        k.parent.parent
-                    )  # Call right rotate on grandparent
-            if k == self.root:  # If k reaches root then break
+                        self.__leftRotate(k)
+                    k.parent.color = BLACK
+                    k.parent.parent.color = RED
+                    self.__rightRotate(k.parent.parent)
+            if k == self.root:
                 break
-        self.root.color = 0  # Set color of root as black
+        self.root.color = BLACK
 
     def insert(self, key):
         self.size += 1
@@ -127,6 +115,9 @@ class RBTree:
                 root = root.right
             elif key < root.val:
                 root = root.left
+            else:
+                print("Duplicate key")
+                return False
 
         node.parent = parent
         if parent == None:
@@ -138,12 +129,13 @@ class RBTree:
 
         if node.parent == None:  # it is the root
             node.color = BLACK
-            return
+            return True
 
         if node.parent.parent == None:  # the tree consists of 2 levels
-            return
+            return True
 
         self.__fixInsert(node)
+        return True
 
     def inorder(self, begin: Node):
         if begin != self.NULL:
