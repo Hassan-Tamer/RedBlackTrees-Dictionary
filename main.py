@@ -1,13 +1,21 @@
 import RBTree as RBTree
 
-def main():
-    t = RBTree.RBTree()
-    t.insert(1)
-    t.insert(2)
-    t.insert(3)
-    t.inorder(t.getRoot())
-    print(t.size)
+t = RBTree.RBTree()
+def main(FILENAME):
+    i = 0
+    with open(FILENAME, 'r') as f:
+        for line in f:
+            i+=1
+            t.insert(line.lower().replace("\n",""))
+            print("Inserted: ", line)
 
+    print("Number of words in the dictionary: ", i)
+    print("Number of nodes in the tree: ", t.size)
+    
+    while(1):
+        str = input("Enter a word to search (-1 to exit):")
+        if str == "-1":
+            break
+        print(t.search(str.lower()))
 
-
-main()
+main("EN-US-Dictionary.txt")
