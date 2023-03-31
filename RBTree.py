@@ -140,3 +140,15 @@ class RBTree :
 
   def getRoot(self):
     return self.root
+  
+  def search(self,key):
+    root = self.root
+    while(root != self.NULL):
+      if(key>root.val):
+        root = root.right
+      elif(key<root.val):
+        root = root.left
+      else:
+        return True
+      
+    return False

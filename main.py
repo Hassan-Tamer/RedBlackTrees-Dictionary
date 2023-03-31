@@ -10,7 +10,7 @@ def main():
     t.insert(7)
     t.insert(16)
     t.inorder(t.getRoot())
-    
+    print(t.search(5))
 
 
 
