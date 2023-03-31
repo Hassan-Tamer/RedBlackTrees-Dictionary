@@ -15,6 +15,7 @@ class RBTree :
       self.NULL.left = None
       self.NULL.right = None
       self.root = self.NULL
+      self.size = 0
 
   def __min(self,root:Node):
     while(root.left != self.NULL):
@@ -99,6 +100,7 @@ class RBTree :
     self.root.color = 0  
 
   def insert(self,key):
+      self.size +=1
       node = Node(key)
       node.parent = None
       node.val = key

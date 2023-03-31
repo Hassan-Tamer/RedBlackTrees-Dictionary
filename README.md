@@ -10,3 +10,5 @@
 - [ ] delete
 - [x] search 
 - [ ] Dico
+- [ ] print height
+- [x] print size
