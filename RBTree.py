@@ -15,36 +15,25 @@ class RBTree:
     def __init__(self):
         self.NULL = Node(0)
         self.NULL.color = BLACK
-        self.NULL.left = None
-        self.NULL.right = None
         self.root = self.NULL
         self.size = 0
 
-    def min(self, root: Node):
-        while root.left != self.NULL:
-            root = root.left
-
-        return root.val
-        
-
     def leftRotate(self, x: Node):
-        y = x.right
-        x.right = y.left
-        if y.left != self.NULL:
+        y  = x.right
+        x.right = y.left 
+        if(y.left != self.NULL):
             y.left.parent = x
 
         y.parent = x.parent
 
-        if x.parent == None:
+        if(x.parent == None):
             self.root = y
 
-        elif x == x.parent.left:
+        elif(x == x.parent.left):
             x.parent.left = y
 
         else:
             x.parent.right = y
-            y.left = x
-            x.parent = y
 
         y.left = x
         x.parent = y
@@ -52,13 +41,13 @@ class RBTree:
     def rightRotate(self, x: Node):
         y = x.left
         x.left = y.right
-        if y.right != self.NULL:
+        if(y.right != self.NULL):
             y.right.parent = x
 
         y.parent = x.parent
-        if x.parent == None:
+        if(x.parent == None):
             self.root = y
-        elif x == x.parent.right:
+        elif(x == x.parent.right):
             x.parent.right = y
         else:
             x.parent.left = y
@@ -69,6 +58,7 @@ class RBTree:
         while k.parent.color == RED:
             if(k.parent == k.parent.parent.right):
                 u = k.parent.parent.left   # uncle
+                # If uncle is red (RECOLOR)
                 if(u.color == RED):
                     u.color = BLACK
                     k.parent.color = BLACK
@@ -102,11 +92,8 @@ class RBTree:
     def insert(self, key):
         self.size += 1
         node = Node(key)
-        node.parent = None
-        node.val = key
         node.left = self.NULL
         node.right = self.NULL
-        node.color = RED
 
         root = self.root
         parent = None
@@ -121,18 +108,17 @@ class RBTree:
                 return False
 
         node.parent = parent
-        if parent == None:
+        # The new node is the root
+        if(parent == None):
             self.root = node
-        elif node.val < parent.val:
+            node.color = BLACK
+            return True
+        elif(node.val < parent.val):
             parent.left = node
         else:
             parent.right = node
 
-        if node.parent == None:  # it is the root
-            node.color = BLACK
-            return True
-
-        if node.parent.parent == None:  # the tree consists of 2 levels
+        if(node.parent.parent == None):  # the tree consists of 2 levels
             return True
 
         self.fixInsert(node)

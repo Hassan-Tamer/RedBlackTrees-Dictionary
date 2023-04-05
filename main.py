@@ -29,8 +29,8 @@ def main(FILENAME):
     print("Number of nodes in the tree: ", t.size)
     print("Height of the tree: ", t.getHeight(t.root))
 
-    insertLoop()
-    searchLoop()
+    # insertLoop()
+    # searchLoop()
 
 
 main("EN-US-Dictionary.txt")

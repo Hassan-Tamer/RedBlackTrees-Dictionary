@@ -4,6 +4,8 @@
 
 <a href = "https://www.cs.usfca.edu/~galles/visualization/RedBlack.html">RB tree visualization</a>
 
+<a href = "https://www.youtube.com/playlist?list=PL9xmBV_5YoZNqDI8qfOZgzbqahCUmUEin">Playlist</a>
+
 **TODO**
 
 - [x] insert
@@ -15,3 +17,5 @@
 - [x] insert Dico
 - [x] search Dico
 - [ ] delete
+
+![alt text](cases.png "Cases")
