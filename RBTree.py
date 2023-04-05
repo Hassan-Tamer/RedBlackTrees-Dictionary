@@ -20,13 +20,14 @@ class RBTree:
         self.root = self.NULL
         self.size = 0
 
-    def __min(self, root: Node):
+    def min(self, root: Node):
         while root.left != self.NULL:
             root = root.left
 
         return root.val
+        
 
-    def __leftRotate(self, x: Node):
+    def leftRotate(self, x: Node):
         y = x.right
         x.right = y.left
         if y.left != self.NULL:
@@ -48,7 +49,7 @@ class RBTree:
         y.left = x
         x.parent = y
 
-    def __rightRotate(self, x: Node):
+    def rightRotate(self, x: Node):
         y = x.left
         x.left = y.right
         if y.right != self.NULL:
@@ -64,36 +65,36 @@ class RBTree:
         y.right = x
         x.parent = y
 
-    def __fixInsert(self, k:Node):
+    def fixInsert(self, k:Node):
         while k.parent.color == RED:
-            if (k.parent == k.parent.parent.right):
-                u = k.parent.parent.left
-                if (u.color == 1):
-                    u.color = 0
-                    k.parent.color = 0
-                    k.parent.parent.color = 1
-                    k = k.parent.parent
-                else:
-                    if k == k.parent.left:
-                        k = k.parent
-                        self.__rightRotate(k)
-                    k.parent.color = BLACK
-                    k.parent.parent.color = RED
-                    self.__leftRotate(k.parent.parent)
-            else:
-                u = k.parent.parent.right
-                if (u.color == RED):
+            if(k.parent == k.parent.parent.right):
+                u = k.parent.parent.left   # uncle
+                if(u.color == RED):
                     u.color = BLACK
                     k.parent.color = BLACK
                     k.parent.parent.color = RED
                     k = k.parent.parent
                 else:
-                    if k == k.parent.right:
+                    if(k == k.parent.left):
                         k = k.parent
-                        self.__leftRotate(k)
+                        self.rightRotate(k)
                     k.parent.color = BLACK
                     k.parent.parent.color = RED
-                    self.__rightRotate(k.parent.parent)
+                    self.leftRotate(k.parent.parent)
+            else:
+                u = k.parent.parent.right
+                if(u.color == RED):
+                    u.color = BLACK
+                    k.parent.color = BLACK
+                    k.parent.parent.color = RED
+                    k = k.parent.parent
+                else:
+                    if(k == k.parent.right):
+                        k = k.parent
+                        self.leftRotate(k)
+                    k.parent.color = BLACK
+                    k.parent.parent.color = RED
+                    self.rightRotate(k.parent.parent)
             if k == self.root:
                 break
         self.root.color = BLACK
@@ -134,7 +135,7 @@ class RBTree:
         if node.parent.parent == None:  # the tree consists of 2 levels
             return True
 
-        self.__fixInsert(node)
+        self.fixInsert(node)
         return True
 
     def inorder(self, begin: Node):
